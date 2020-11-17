@@ -70,8 +70,7 @@ public class DOM {
 
             //Antes de cada libro hay un nodo de tipo texto.
             //el problema está en la creación del árbol
-            System.out.println("iteración " + i + "\t" + node.getNodeType() + " nodo " + node.getNodeName() + "\n");
-
+            //System.out.println("iteración " + i + "\t" + node.getNodeType() + " nodo " + node.getNodeName() + "\n");
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 //Es un nodo libro
 
@@ -166,6 +165,14 @@ public class DOM {
     public int modificar_DOM(String[] _textoAModificar) {
 
         try {
+            String sannoAntiguo = getAnnoAntiguo(_textoAModificar[4]);
+            String sautorAntiguo = getAutorAntiguo(_textoAModificar[2]);
+            String stituloAntiguo = getTituloAntiguo(_textoAModificar[0]);
+            
+            System.out.println("Año antiguo: " + sannoAntiguo);
+            System.out.println("Autor antiguo: " + sautorAntiguo);
+            System.out.println("Titulo antiguo: " + stituloAntiguo);
+
             //nodo libros
             Node raiz = doc.getFirstChild();
             //todos los nodos libro en una lista
@@ -341,7 +348,6 @@ public class DOM {
     private String getAnnoAntiguo(String _textoAModificar) {
         String salida = "";
         Node nodeLibro;
-        String datos_nodo[] = null;
 
         //nodo libros
         Node raiz = doc.getFirstChild();
@@ -354,11 +360,7 @@ public class DOM {
             if (nodeLibro.getNodeType() == Node.ELEMENT_NODE) {
                 //Es un nodo libro
 
-                datos_nodo = procesarLibro(nodeLibro);
-
-                if (datos_nodo[0] == _textoAModificar) {
-                    salida = datos_nodo[1];
-                }
+                salida = nodeLibro.getAttributes().item(0).getNodeValue();
             }
         }
 
